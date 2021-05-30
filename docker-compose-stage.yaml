@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  miedzy-nami-kierowcami-mysql:
+    container_name: miedzy-nami-kierowcami-mysql-stage
+    ports:
+      - '33062:3306'
+
+  miedzy-nami-kierowcami-php:
+    container_name: miedzy-nami-kierowcami-php-stage
+    environment:
+      APP_ENV: prod
+      APP_VERSION: prod
+      DATABASE_URL: mysql://root:@miedzy-nami-kierowcami-mysql:3306/miedzy-nami-kierowcami_stage
+
+  miedzy-nami-kierowcami-nginx:
+    container_name: miedzy-nami-kierowcami-nginx-stage
+    ports:
+      - '8082:80'

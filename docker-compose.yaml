@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  miedzy-nami-kierowcami-mysql:
+    image: mysql:5.7
+    command: --sql_mode=""
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+    volumes:
+      - miedzy-nami-kierowcami_db_data:/var/lib/mysql
+
+  miedzy-nami-kierowcami-php:
+    build: docker/php-fpm
+    working_dir: /app
+#    environment:
+#      JWT_PASSPHRASE: 1234
+    volumes:
+      - ./docker/php-fpm/php.ini:/usr/local/etc/php/php.ini:ro
+      - .:/app:cached
+    depends_on:
+      - miedzy-nami-kierowcami-mysql
+
+  miedzy-nami-kierowcami-nginx:
+    image: nginx:latest
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - .:/app:cached
+    depends_on:
+      - miedzy-nami-kierowcami-php
+
+volumes:
+  miedzy-nami-kierowcami_db_data:

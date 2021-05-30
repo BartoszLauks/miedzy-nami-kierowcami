@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  miedzy-nami-kierowcami-mysql:
+    container_name: miedzy-nami-kierowcami-mysql-dev-local
+    ports:
+      - '33060:3306'
+  miedzy-nami-kierowcami-php:
+    container_name: miedzy-nami-kierowcami-php-dev-local
+    ports:
+      - '2222:22'
+    volumes:
+      - miedzy-nami-kierowcami-api-vendor-sync:/app/vendor
+      - miedzy-nami-kierowcami-api-app-sync:/app
+    environment:
+      APP_ENV: dev
+      APP_VERSION: dev
+      DATABASE_URL: mysql://root:@miedzy-nami-kierowcami-mysql:3306/miedzy-nami-kierowcami
+
+  miedzy-nami-kierowcami-nginx:
+    container_name: miedzy-nami-kierowcami-nginx-dev-local
+    ports:
+      - '9090:80'
+    volumes:
+      - miedzy-nami-kierowcami-api-vendor-sync:/app/vendor
+      - miedzy-nami-kierowcami-api-app-sync:/app
+
+volumes:
+  miedzy-nami-kierowcami-api-vendor-sync:
+    external: true
+  miedzy-nami-kierowcami-api-app-sync:
+    external: true
