@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}<h2>News</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>
+                Title
+            </td>
+            <td>
+                Description
+            </td>
+            <td>
+                Photo
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for news in newses %}
+                <tr>
+                    <td>
+                        {{ news.title }}
+                    </td>
+                    <td>
+                        {{ news.description }}
+                    </td>
+                    <td>
+                        <a href="{{ news.link }}">
+                        <img src="{{ '/uploads/photos/' ~ news.photo }}"  alt="Error">
+                        </a>
+                        <p>Kliknij na zdjecie aby przejść dalej</p>
+                    </td>
+                </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ form(news_form) }}
+{% endblock %}
