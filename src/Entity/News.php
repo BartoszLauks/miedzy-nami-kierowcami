@@ -39,7 +39,7 @@ class News
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\File()
+     * @Assert\NotBlank()
      */
     private $photo;
 
@@ -119,5 +119,9 @@ class News
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->title;
     }
 }

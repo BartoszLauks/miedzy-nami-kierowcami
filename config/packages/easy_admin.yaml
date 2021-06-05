@@ -1,0 +1,45 @@
+#easy_admin:
+#    entities:
+#       - App\Entity\News
+easy_admin:
+    site_name: Admin Console
+
+    design:
+        menu:
+            - { route: 'home', label: 'Back to the website', icon: 'home' }
+            - { entity: 'News', label: 'News', icon: 'map-marker' }
+            - { entity: 'Cars', label: 'Cars', icon: 'car' }
+            - { entity: 'Marks', label: 'Marks', icon: 'car' }
+            - { entity: 'CarBodys', label: 'CarBodys', icon: 'car' }
+            - { entity: 'Engines', label: 'Engines', icon: 'car' }
+            - { entity: 'EngineTypes', label: 'EngineTypes', icon: 'car' }
+
+    entities:
+        News:
+            class: App\Entity\News
+            list:
+                fields:
+                    - title
+                    - description
+                    - link
+                    - { property: 'photo', type: 'image', 'base_path': "/uploads/photos", label: 'Photo' }
+                    - { property: 'createdAt', type: 'datetime' }
+                sort: ['createdAt', 'DESC']
+            edit:
+                fields:
+                    - title
+                    - description
+                    - link
+                    #- photo bład wymaga konwertu na string
+                    - createdAt
+
+        Engines:
+            class: App\Entity\Engines
+        EngineTypes:
+            class: App\Entity\EngineTypes
+        Cars:
+            class: App\Entity\Cars
+        Marks:
+            class: App\Entity\Marks
+        CarBodys:
+            class: App\Entity\CarBodys
