@@ -103,11 +103,6 @@ class Engines
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->name;
-    }
-
     /**
      * @return Collection|Cars[]
      */
@@ -136,5 +131,10 @@ class Engines
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }
