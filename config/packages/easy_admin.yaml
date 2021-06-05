@@ -7,6 +7,7 @@ easy_admin:
     design:
         menu:
             - { route: 'home', label: 'Back to the website', icon: 'home' }
+            - { entity: 'User', label: 'User', icon: 'fas fa-users' }
             - { entity: 'News', label: 'News', icon: 'fas fa-newspaper' }
             - { entity: 'Cars', label: 'Cars', icon: 'car' }
             - { entity: 'Marks', label: 'Marks', icon: 'car' }
@@ -34,6 +35,19 @@ easy_admin:
                     - link
                     #- photo bład wymaga konwertu na string
                     - createdAt
+        User:
+            class: App\Entity\User
+            list:
+                fields:
+                    - email
+                    - roles
+                    - password
+            edit:
+                fields:
+                    - email
+                    #- password
+                    #- { property: 'roles', type: 'checkbox', label: 'roles' }
+
 
         Engines:
             class: App\Entity\Engines
@@ -49,4 +63,6 @@ easy_admin:
             class: App\Entity\BlogPosts
         Comments:
             class: App\Entity\Comments
+        #User:
+        #    class: App\Entity\User
 

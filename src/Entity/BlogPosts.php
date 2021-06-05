@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=BlogPostsRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class BlogPosts
 {
@@ -43,6 +44,11 @@ class BlogPosts
      * @ORM\ManyToOne(targetEntity=Cars::class, inversedBy="post")
      */
     private $cars;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="post")
+     */
+    private $user;
 
 
     public function __construct()
@@ -122,6 +128,14 @@ class BlogPosts
         return $this;
     }
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
     public function __toString()
     {
         return $this->title;
@@ -135,6 +149,18 @@ class BlogPosts
     public function setCars(?Cars $cars): self
     {
         $this->cars = $cars;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
