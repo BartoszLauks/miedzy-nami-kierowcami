@@ -7,12 +7,14 @@ easy_admin:
     design:
         menu:
             - { route: 'home', label: 'Back to the website', icon: 'home' }
-            - { entity: 'News', label: 'News', icon: 'map-marker' }
+            - { entity: 'News', label: 'News', icon: 'fas fa-newspaper' }
             - { entity: 'Cars', label: 'Cars', icon: 'car' }
             - { entity: 'Marks', label: 'Marks', icon: 'car' }
             - { entity: 'CarBodys', label: 'CarBodys', icon: 'car' }
             - { entity: 'Engines', label: 'Engines', icon: 'car' }
             - { entity: 'EngineTypes', label: 'EngineTypes', icon: 'car' }
+            - { entity: 'BlogPosts', label: 'BlogPosts', icon: 'fas fa-comments' }
+            - { entity: 'Comments', label: 'Comments', icon: 'fas fa-comments' }
 
     entities:
         News:
@@ -43,3 +45,8 @@ easy_admin:
             class: App\Entity\Marks
         CarBodys:
             class: App\Entity\CarBodys
+        BlogPosts:
+            class: App\Entity\BlogPosts
+        Comments:
+            class: App\Entity\Comments
+

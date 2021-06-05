@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CarsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +44,16 @@ class Cars
      * @ORM\ManyToOne(targetEntity=CarBodys::class, inversedBy="cars")
      */
     private $carBodys;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BlogPosts::class, mappedBy="cars")
+     */
+    private $post;
+
+    public function __construct()
+    {
+        $this->post = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,5 +132,35 @@ class Cars
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|BlogPosts[]
+     */
+    public function getPost(): Collection
+    {
+        return $this->post;
+    }
+
+    public function addPost(BlogPosts $post): self
+    {
+        if (!$this->post->contains($post)) {
+            $this->post[] = $post;
+            $post->setCars($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(BlogPosts $post): self
+    {
+        if ($this->post->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getCars() === $this) {
+                $post->setCars(null);
+            }
+        }
+
+        return $this;
     }
 }
