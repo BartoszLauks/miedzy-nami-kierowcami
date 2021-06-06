@@ -37,8 +37,7 @@
         </tbody>
     </table>
 
-    {# //TODO : validacja po stronie serwera #}
-     {% if is_granted('ROLE_EDITOR') %}
+    {% if is_granted('ROLE_EDITOR') %}
     {{ form(news_form) }}
     {% endif %}
 {% endblock %}

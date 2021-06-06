@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block body %}
+    {% if posts|length <= 0 %}
+        <h1>Nie ma zadnych postów zwiazanych z tym autem</h1>
+    {% else %}
+        <h2>Posts</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>
+                    Tytuł
+                </td>
+                <td>
+                    Tekst
+                </td>
+                <td>
+                    Utworzony
+                </td>
+                <td>
+                    Komentarze
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td>
+                        {{ post.title }}
+                    </td>
+                    <td>
+                        {{ post.text }}
+                    </td>
+                    <td>
+                        {{ post.createdAt|format_datetime('medium', 'short') }}
+                    </td>
+                    <td>
+                        <a href="{{ path('show_comments',{post: post.id }) }}">Przejdz</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+
+{% endblock %}

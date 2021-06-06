@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block body %}
+    <h2>Post</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>
+                Tytuł
+            </td>
+            <td>
+                Tekst
+            </td>
+            <td>
+                Utworzony
+            </td>
+
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{ post.title }}
+                </td>
+                <td>
+                    {{ post.text }}
+                </td>
+                <td>
+                    {{ post.createdAt|format_datetime('medium', 'short') }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <h2>Komentarze</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>
+                Tekst
+            </td>
+            <td>
+                Utworzony
+            </td>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr>
+                <td>
+                    {{ comment.text }}
+                </td>
+                <td>
+                    {{ comment.createAt|format_datetime('medium', 'short') }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ form(comment_form) }}
+
+{% endblock %}

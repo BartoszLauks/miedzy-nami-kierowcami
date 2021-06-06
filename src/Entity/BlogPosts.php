@@ -54,7 +54,6 @@ class BlogPosts
     public function __construct()
     {
         $this->comments = new ArrayCollection();
-        $this->cars = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -141,18 +140,6 @@ class BlogPosts
         return $this->title;
     }
 
-    public function getCars(): ?Cars
-    {
-        return $this->cars;
-    }
-
-    public function setCars(?Cars $cars): self
-    {
-        $this->cars = $cars;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -161,6 +148,18 @@ class BlogPosts
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCars(): ?Cars
+    {
+        return $this->cars;
+    }
+
+    public function setCars(?Cars $cars): self
+    {
+        $this->cars = $cars;
 
         return $this;
     }

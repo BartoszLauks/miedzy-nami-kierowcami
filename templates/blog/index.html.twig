@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block body %}
+    <h2>Posts</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>
+                Tytuł
+            </td>
+            <td>
+                Tekst
+            </td>
+            <td>
+                Utworzony
+            </td>
+            <td>
+                Specyfikacja auta
+            </td>
+            <td>
+                Komentarze
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>
+                    {{ post.title }}
+                </td>
+                <td>
+                    {{ post.text }}
+                </td>
+                <td>
+                    {{ post.createdAt|format_datetime('medium', 'short') }}
+                </td>
+                <td>
+                    {% if post.cars.id is defined %}
+                    <a href="{{ path('show_car',{cars : post.cars.id }) }}">Przejdz</a>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('show_comments',{post: post.id }) }}">Przejdz</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ form(post_form) }}
+
+{% endblock %}

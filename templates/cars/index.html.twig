@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Auta{% endblock %}
+
+{% block body %}<h2>Auta</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>
+                Nazwa
+            </td>
+            <td>
+                Marka
+            </td>
+            <td>
+                Silnik
+            </td>
+            <td>
+                Karoseria
+            </td>
+            <td>
+                Utworzony
+            </td>
+            <td>
+                Specyfikacja auta
+            </td>
+            <td>
+                Posty powiązane z tym autem
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for car in cars %}
+            <tr>
+                <td>
+                    {{ car.name }}
+                </td>
+                <td>
+                    {{ car.marks }}
+                </td>
+                <td>
+                    {{ car.engines }}
+                </td>
+                <td>
+                    {{ car.carBodys }}
+                </td>
+                <td>
+                    {{ car.createdAt|format_datetime('medium', 'short') }}
+                </td>
+                <td>
+                    <a href="{{ path('show_car',{cars : car.id }) }}">Przejdz</a>
+                </td>
+                <td>
+                    <a href="{{ path('posts_car',{car : car.id }) }}">Sprawdz</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if is_granted('ROLE_EDITOR') %}
+        {{ form(car_form) }}
+    {% endif %}
+{% endblock %}

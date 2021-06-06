@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CommentsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CommentsRepository::class)
@@ -20,6 +21,7 @@ class Comments
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $text;
 
@@ -32,6 +34,11 @@ class Comments
      * @ORM\ManyToOne(targetEntity=BlogPosts::class, inversedBy="comments")
      */
     private $post;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comment")
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -85,5 +92,17 @@ class Comments
     public function __toString()
     {
         return mb_strimwidth($this->text,0,48, "...");
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }

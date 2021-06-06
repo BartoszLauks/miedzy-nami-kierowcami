@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Specyfikacja Auta{% endblock %}
+
+{% block body %}<br><h2>Specyfikacja Auta</h2><br>
+    <h1>{{ car.name }}</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>
+                    Marka
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{ mark.name }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>
+                Silnik
+            </td>
+            <td>
+                Pojemność
+            </td>
+            <td>
+                Moc
+            </td>
+            <td>
+                Typ Silnika
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                {{ engines.name }}
+            </td>
+            <td>
+                {{ engines.displacement }}
+            </td>
+            <td>
+                {{ engines.power }}
+            </td>
+            <td>
+                {{ engines.engineTypes }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>
+                Wysokość
+            </td>
+            <td>
+                Szerokość
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                {{ body.height }}
+            </td>
+            <td>
+                {{ body.width }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+{% endblock %}

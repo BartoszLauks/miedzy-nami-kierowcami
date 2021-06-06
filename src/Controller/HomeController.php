@@ -45,6 +45,7 @@ class HomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             //dd($request);
+            $this->denyAccessUnlessGranted('ROLE_EDITOR');
             //dd($request->get("news_form")["title"]);
             if ($title = $request->get("news_form")["title"])
             {
@@ -71,7 +72,10 @@ class HomeController extends AbstractController
             $this->entityManager->persist($news);
             $this->entityManager->flush();
 
-            //echo "asdadsadasdsa";
+            return $this->render('home/index.html.twig',[
+                'news_form' => $form->createView(),
+                'newses' => $getnews,
+            ]);
         }
 
         return $this->render('home/index.html.twig',[
