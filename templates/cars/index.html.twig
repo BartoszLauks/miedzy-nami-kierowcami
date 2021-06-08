@@ -57,7 +57,7 @@
         {% endfor %}
         </tbody>
     </table>
-    {% if is_granted('ROLE_EDITOR') %}
+    {% if is_granted('ROLE_EDITOR') or is_granted('ROLE_ADMIN') %}
         {{ form(car_form) }}
     {% endif %}
 {% endblock %}

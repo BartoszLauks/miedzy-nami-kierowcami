@@ -7,19 +7,26 @@ use App\Entity\EngineTypes;
 use App\Entity\News;
 use App\Entity\User;
 use App\Repository\EngineTypesRepository;
+use App\Repository\UserRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Security;
 
 class AppFixtures extends Fixture
 {
     private $passwordEncoder;
     private $engineTypesRepository;
+    private $security;
+    private $userRepository;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, EngineTypesRepository $engineTypesRepository)
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, EngineTypesRepository $engineTypesRepository,
+                                Security $security,UserRepository $userRepository)
     {
         $this->passwordEncoder = $passwordEncoder;
         $this->engineTypesRepository = $engineTypesRepository;
+        $this->security = $security;
+        $this->userRepository = $userRepository;
     }
 
     public function load(ObjectManager $manager)
@@ -47,20 +54,6 @@ class AppFixtures extends Fixture
         $manager->persist($user);
         // Koniec User
 
-        // Tablica News
-        for ($i = 1; $i <= 10; $i++)
-        {
-            $news = new News();
-            $news->setTitle("Title ".$i);
-            $news->setDescription("Description ".$i);
-            $news->setLink('https://www.ujd.edu.pl/');
-            $news->setPhoto('source.gif');
-            //$news->setPhoto(dirname(__DIR__,2).'/public/source.gif');
-            $news->setCreatedAtValue();
-
-            $manager->persist($news);
-        }
-        // Koniec News
 
         // Tablica EnginesTypes
 
@@ -77,7 +70,7 @@ class AppFixtures extends Fixture
         // Koniec EnginesTypes
 
         /*
-        // Tablica Engine
+        // Tablica BodysEngineMarks
         $engine = new Engines();
         $engine->setName('1,6 116i 115 KM');
         $engine->setDisplacement(2500);
@@ -93,7 +86,7 @@ class AppFixtures extends Fixture
         $engine->setEngineTypes($this->engineTypesRepository->findOnBy(['name' => 'Diesel']));
 
         $manager->persist($engine);
-        // Koniec Engine
+        // Koniec BodysEngineMarks
 
         */
 

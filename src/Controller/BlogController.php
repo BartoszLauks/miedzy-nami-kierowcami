@@ -74,6 +74,8 @@ class BlogController extends AbstractController
             $this->entityManager->persist($post);
             $this->entityManager->flush();
 
+            return $this->redirectToRoute('blog');
+
         }
 
         return $this->render( "blog/index.html.twig", [
@@ -104,11 +106,12 @@ class BlogController extends AbstractController
             $this->entityManager->persist($comment);
             $this->entityManager->flush();
 
-            return $this->render('blog/showComments.html.twig', [
-                'comment_form' => $form->createView(),
-                'comments' => $comments,
-                'post' => $post
-            ]);
+            return $this->redirectToRoute('show_comments',['post' => $post->getId()]);
+            //return $this->render('blog/showComments.html.twig', [
+            //    'comment_form' => $form->createView(),
+            //    'comments' => $comments,
+            //    'post' => $post
+            //]);
         }
 
         //dd($comments);

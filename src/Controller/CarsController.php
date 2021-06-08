@@ -43,7 +43,8 @@ class CarsController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            $this->denyAccessUnlessGranted('ROLE_EDITOR');
+            $this->isGranted(['ROLE_EDITOR','ROLE_ADMIN']);
+            //$this->denyAccessUnlessGranted(['ROLE_EDITOR','ROLE_ADMIN']);
 
             if($name = $request->get('cars_form')['name'])
             {
@@ -64,10 +65,11 @@ class CarsController extends AbstractController
             $this->entityManager->persist($car);
             $this->entityManager->flush();
 
-            return $this->render('cars/index.html.twig', [
-                'cars' => $cars,
-                'car_form'  => $form->createView()
-            ]);
+            return $this->redirectToRoute('cars');
+            //return $this->render('cars/index.html.twig', [
+            //    'cars' => $cars,
+            //    'car_form'  => $form->createView()
+            //]);
         }
 
         return $this->render('cars/index.html.twig', [

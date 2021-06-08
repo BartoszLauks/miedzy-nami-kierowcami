@@ -20,7 +20,7 @@ class CarsRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Cars[] Returns an array of Cars objects
+    //  * @return CarsFlush[] Returns an array of CarsFlush objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CarsRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Cars
+    public function findOneBySomeField($value): ?CarsFlush
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

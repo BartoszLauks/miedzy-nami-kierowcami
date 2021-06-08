@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Security;
 
 class RegisterController extends AbstractController
 {
@@ -22,16 +23,22 @@ class RegisterController extends AbstractController
      * @var UserPasswordEncoderInterface
      */
     private $passwordEncoder;
+    /**
+     * @var Security
+     */
+    private $security;
 
 
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        UserPasswordEncoderInterface $passwordEncoder
+        UserPasswordEncoderInterface $passwordEncoder,
+        Security $security
     )
     {
         $this->entityManager = $entityManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->security = $security;
 
     }
 
@@ -65,7 +72,7 @@ class RegisterController extends AbstractController
 
             $user->setEmail($data['email']);
             $user->setPassword(
-                $this->passwordEncoder->encodePassword($user,$data['password'])
+                $this->passwordEncoder->encodePassword($user, $data['password'])
             );
             $user->setRoles([]);
             //$em = $this->entityManager; //$this->getDoctrine()->getManager();
@@ -78,8 +85,10 @@ class RegisterController extends AbstractController
             //$this->addFlash('success', 'Rejestracja się powiodła!');
 
             //return ['form' => 'registered'];
-            return $this->redirect($this->generateUrl('app_login'));
-
+            if ($this->security->getUser()) {
+                return $this->redirect($this->generateUrl('app_login'));
+            }
+            return $this->redirect($this->generateUrl('home'));
         }
 
         //return ['form' => $form->createView()];

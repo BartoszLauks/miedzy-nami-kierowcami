@@ -27,12 +27,14 @@ easy_admin:
                     - link
                     - { property: 'photo', type: 'image', 'base_path': "/uploads/photos", label: 'Photo' }
                     - { property: 'createdAt', type: 'datetime' }
+                    - user
                 sort: ['createdAt', 'DESC']
             edit:
                 fields:
                     - title
                     - description
                     - link
+                    - user
                     #- photo bład wymaga konwertu na string
                     - createdAt
         User:

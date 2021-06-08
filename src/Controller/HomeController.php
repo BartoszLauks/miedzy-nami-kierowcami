@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\News;
 use App\Form\NewsFormType;
 use App\Repository\NewsRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class HomeController extends AbstractController
 {
@@ -23,11 +25,22 @@ class HomeController extends AbstractController
      * @var NewsRepository
      */
     private NewsRepository $newsRepository;
+    /**
+     * @var Security
+     */
+    private $security;
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, NewsRepository $newsRepository)
+    public function __construct(EntityManagerInterface $entityManager, NewsRepository $newsRepository,
+                                Security $security,UserRepository $userRepository)
     {
         $this->entityManager = $entityManager;
         $this->newsRepository = $newsRepository;
+        $this->security = $security;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -45,7 +58,8 @@ class HomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             //dd($request);
-            $this->denyAccessUnlessGranted('ROLE_EDITOR');
+            $this->isGranted(['ROLE_EDITOR','ROLE_ADMIN']);
+            //$this->denyAccessUnlessGranted(['ROLE_EDITOR','ROLE_ADMIN']);
             //dd($request->get("news_form")["title"]);
             if ($title = $request->get("news_form")["title"])
             {
@@ -69,13 +83,16 @@ class HomeController extends AbstractController
                 }
                 $news->setPhoto($filename);
             }
+            $news->setUser($this->userRepository->find($this->security->getUser()));
+
             $this->entityManager->persist($news);
             $this->entityManager->flush();
 
-            return $this->render('home/index.html.twig',[
-                'news_form' => $form->createView(),
-                'newses' => $getnews,
-            ]);
+            return $this->redirectToRoute('home');
+            //return $this->render('home/index.html.twig',[
+            //    'news_form' => $form->createView(),
+            //    'newses' => $getnews,
+            //]);
         }
 
         return $this->render('home/index.html.twig',[
