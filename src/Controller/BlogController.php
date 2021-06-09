@@ -69,7 +69,11 @@ class BlogController extends AbstractController
             } else {
                 $post->setCars(null);
             }
-            $post->setUser($this->userRepository->find($this->security->getUser()));
+            if ($this->security->getUser() != null)
+            {
+                $post->setUser($this->userRepository->find($this->security->getUser()));
+            }
+
 
             $this->entityManager->persist($post);
             $this->entityManager->flush();
@@ -101,7 +105,11 @@ class BlogController extends AbstractController
                 $comment->setText($text);
             }
             $comment->setPost($post);
-            $comment->setUser($this->userRepository->find($this->security->getUser()));
+            if ($this->security->getUser() != null)
+            {
+                $post->setUser($this->userRepository->find($this->security->getUser()));
+            }
+            //$comment->setUser($this->userRepository->find($this->security->getUser()));
 
             $this->entityManager->persist($comment);
             $this->entityManager->flush();

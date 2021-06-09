@@ -9,12 +9,10 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegisterControllerTest extends WebTestCase
 {
-
-
     public function testRegister(): void
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/register');
+        $client->request('GET', '/register');
 
         $this->assertResponseIsSuccessful();
 
@@ -25,8 +23,8 @@ class RegisterControllerTest extends WebTestCase
             'form[password][first]' => '123',
             'form[password][second]' => '123'
             ]);
-        //$this->assertResponseRedirects();
-        //$client->followRedirect();
+        $this->assertResponseRedirects();
+        $client->followRedirect();
 
         //$client->clickLink('Register');
 
