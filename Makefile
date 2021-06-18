@@ -79,3 +79,6 @@ execphp:
 
 execdb:
 	docker-compose exec miedzy-nami-kierowcami-mysql bash
+
+symfony_instal:
+	./symfony_cli_install.sh
