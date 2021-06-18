@@ -9,8 +9,8 @@ services:
   miedzy-nami-kierowcami-php:
     container_name: miedzy-nami-kierowcami-php-dev
     environment:
-      APP_ENV: dev
-      APP_VERSION: dev
+      APP_ENV: test
+      APP_VERSION: test
       DATABASE_URL: mysql://root:@miedzy-nami-kierowcami-mysql:3306/miedzy-nami-kierowcami_dev
 
   miedzy-nami-kierowcami-nginx:

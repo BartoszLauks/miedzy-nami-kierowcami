@@ -19,7 +19,7 @@ class RegisterControllerTest extends WebTestCase
         $this->assertSelectorTextContains('h2', 'Podaj dane do rejestracji');
 
         $client->submitForm('Register', [
-            'form[email]' => 'testn@test.pl',
+            'form[email]' => 'test@test.pl',
             'form[password][first]' => '123',
             'form[password][second]' => '123'
             ]);

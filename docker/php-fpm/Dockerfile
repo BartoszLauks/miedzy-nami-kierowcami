@@ -5,7 +5,6 @@ RUN apk update \
     bash \
     git \
     zip \
-    intl \
     unzip \
     rsyslog \
     tzdata \
